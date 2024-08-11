@@ -1,0 +1,22 @@
+services:
+  app:
+    container_name: trollwarlord
+    image: example.com/trollwarlord:latest
+    environment:
+      spring.profiles.active: "docker"
+      DB_USERNAME: "hydra"
+      DB_PASSWORD: "cerberus"
+      DB_URL: "jdbc:postgresql://postgresql:5432/local"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgresql
+  postgresql:
+    container_name: postgresql
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: hydra
+      POSTGRES_PASSWORD: cerberus
+      POSTGRES_DB: local
+    ports:
+      - "5432:5432"

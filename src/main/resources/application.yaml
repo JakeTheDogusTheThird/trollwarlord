@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: trollwarlord
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: "hydra"
+    password: "cerberus"
+    url: "jdbc:postgresql://localhost:5432/local"
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    show-sql: true
