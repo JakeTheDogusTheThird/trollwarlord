@@ -1,7 +1,7 @@
 services:
   app:
-    container_name: trollwarlord
-    image: example.com/trollwarlord:latest
+    container_name: minibank
+    image: example.com/minibank:latest
     environment:
       spring.profiles.active: "docker"
       DB_USERNAME: "hydra"
@@ -20,3 +20,13 @@ services:
       POSTGRES_DB: local
     ports:
       - "5432:5432"
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: hydra@mail.com
+      PGADMIN_DEFAULT_PASSWORD: cerberus
+    ports:
+      - "8888:80"

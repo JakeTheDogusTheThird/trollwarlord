@@ -1,4 +1,4 @@
-package com.example.trollwarlord;
+package com.example.minibank;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

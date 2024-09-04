@@ -1,6 +1,6 @@
 spring:
   application:
-    name: trollwarlord
+    name: minibank
   datasource:
     driver-class-name: org.postgresql.Driver
     username: "hydra"
