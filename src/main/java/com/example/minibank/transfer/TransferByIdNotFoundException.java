@@ -1,7 +1,6 @@
 package com.example.minibank.transfer;
 
 public class TransferByIdNotFoundException extends RuntimeException {
-
     public TransferByIdNotFoundException(String errorMessage) {
         super(errorMessage);
     }

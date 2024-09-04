@@ -32,19 +32,28 @@ public class User extends Auditable {
     private String surname;
 
     @Column(nullable = false)
+    private String username;
+
+    @Column(nullable = false)
     private String password; // TODO store as hash
 
     @Column(nullable = false, unique = true)
     private String email;
 
     @Builder
-    public User(Integer id, String licenseId, String name, String surname, String password, String email) {
+    public User(final Integer id,
+                final String licenseId,
+                final String name,
+                final String surname,
+                final String username,
+                final String password,
+                final String email) {
         this.id = id;
         this.licenseId = licenseId;
         this.name = name;
         this.surname = surname;
+        this.username = username;
         this.password = password;
         this.email = email;
     }
-
 }
