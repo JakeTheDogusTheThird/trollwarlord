@@ -11,15 +11,14 @@ public class TransferService {
     private final BankAccountRepository bankAccountRepository;
     private final TransferRepository transferRepository;
 
-
     public Integer executeTransfer(TransferDTO transferDTO) throws BankAccountByIdNotFoundException,
             BankAccountBalanceNotEnoughException {
 
-        var from = bankAccountRepository
+        var from = this.bankAccountRepository
                 .findById(transferDTO.fromBankAccountId())
                 .orElseThrow(() -> new BankAccountByIdNotFoundException(transferDTO.fromBankAccountId()));
 
-        var to  = bankAccountRepository
+        var to  = this.bankAccountRepository
                 .findById(transferDTO.toBankAccountId())
                 .orElseThrow(() -> new BankAccountByIdNotFoundException(transferDTO.toBankAccountId()));
 
@@ -31,32 +30,31 @@ public class TransferService {
             throw new BankAccountBalanceNotEnoughException(from);
         }
         // Throw exception not enough balance/funds
-        bankAccountRepository.save(from);
-        bankAccountRepository.save(to);
+        this.bankAccountRepository.save(from);
+        this.bankAccountRepository.save(to);
 
-        Transfer transfer = Transfer.builder()
-                .fromBankAccountId(transferDTO.fromBankAccountId())
-                .toBankAccountId(transferDTO.toBankAccountId())
+        final Transfer transfer = Transfer.builder()
+                .fromBankAccountId(from)
+                .toBankAccountId(to)
                 .transferredAmount(transferDTO.ammount())
                 .commodity(transferDTO.commodity())
                 .build();
-        return transferRepository.save(transfer).getId();
+        return this.transferRepository.save(transfer).getId();
     }
 
-    public Set<Transfer> getBankAccountTransfers(Integer bankAccountId) {
-        return transferRepository.findByFromBankAccountId(bankAccountId);
+    public Set<Transfer> getBankAccountTransfers(BankAccount bankAccountId) {
+        return this.transferRepository.findAllByFromBankAccountId(bankAccountId);
     }
 
     public Transfer getTransferById(Integer transferId) throws TransferByIdNotFoundException{
-        return transferRepository.findById(transferId).orElseThrow(
+        return this.transferRepository.findById(transferId).orElseThrow(
                 () -> new TransferByIdNotFoundException(transferId)
         );
     }
 
-    public Transfer getTransferByCommodity(Commodity commodity) throws TransferByCommodityNotFoundException {
-        return transferRepository.findByCommodity(commodity).orElseThrow(
+    public Transfer getTransferByCommodity(Transfer.Commodity commodity) throws TransferByCommodityNotFoundException {
+        return this.transferRepository.findByCommodity(commodity).orElseThrow(
                 () -> new TransferByCommodityNotFoundException(commodity)
         );
     }
-
 }

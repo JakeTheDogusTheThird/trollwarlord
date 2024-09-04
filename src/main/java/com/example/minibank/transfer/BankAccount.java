@@ -16,17 +16,10 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 
-enum AccountType {
-    checking_account,
-    savings_account,
-    money_market_account,
-    certificate_of_deposit_account
-}
-
 @Setter
 @Getter
 @NoArgsConstructor
-@Table(name = "bank_account")
+@Table(name = "bank_accounts")
 @Entity
 public class BankAccount extends Auditable {
     @Id
@@ -35,7 +28,7 @@ public class BankAccount extends Auditable {
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    private Integer userId;
+    private User userId;
 
     @Column(nullable = false, unique = true)
     private String username;
@@ -47,12 +40,18 @@ public class BankAccount extends Auditable {
     private double balance;
 
     @Builder
-    public BankAccount(Integer id, Integer userId, String username, AccountType account, double balance) {
+    public BankAccount(Integer id, User user, String username, AccountType account, double balance) {
         this.id = id;
-        this.userId = userId;
+        this.userId = user;
         this.username = username;
         this.account = account;
         this.balance = balance;
     }
 
+    public enum AccountType {
+        checking_account,
+        savings_account,
+        money_market_account,
+        certificate_of_deposit_account
+    }
 }

@@ -5,7 +5,7 @@ public class TransferByCommodityNotFoundException extends RuntimeException {
         super(errorMessage);
     }
 
-    public TransferByCommodityNotFoundException(Commodity commodity) {
+    public TransferByCommodityNotFoundException(Transfer.Commodity commodity) {
         super("There are no transfers that cover the given commodity " + commodity);
     }
 }
